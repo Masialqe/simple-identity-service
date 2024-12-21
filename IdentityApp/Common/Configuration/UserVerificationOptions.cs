@@ -2,9 +2,9 @@
 
 namespace IdentityApp.Common.Configuration
 {
-    public class UserVerificationOptions
+    public sealed class UserVerificationOptions
     {
-        public static string SectionName = "UserVerification";
+        public static readonly string SectionName = "UserVerification";
 
         [Required]
         [Range(1, int.MaxValue)]

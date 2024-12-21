@@ -1,6 +1,8 @@
 ﻿using Microsoft.IdentityModel.JsonWebTokens;
 using IdentityApp.Managers.Interrfaces;
+using IdentityApp.Common.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
 using IdentityApp.Users.Models;
 using System.Security.Claims;
 using System.Text;
@@ -8,11 +10,13 @@ using System.Text;
 namespace IdentityApp.Managers
 {
     public sealed class JwtManager(
-        IConfiguration configuration) : IJwtManager
+        IOptions<JwtOptions> options,
+        IOptions<SecretsOptions> secrets) : IJwtManager
     {
         public string CreateAccessToken(User user)
         {
-            string secretKey = configuration["SECRET_KEY"]!;
+            var secretKey = secrets.Value.SecretKey!;
+            
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var tokenDescriptor = CreateTokenDescriptor(user, credentials);
@@ -25,6 +29,8 @@ namespace IdentityApp.Managers
 
         private SecurityTokenDescriptor CreateTokenDescriptor(User user, SigningCredentials credentials)
         {
+            var jwtOptions = options.Value;
+            
             var tokenDescriptor =  new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(
@@ -33,10 +39,10 @@ namespace IdentityApp.Managers
                     new Claim(ClaimTypes.Name, user.Login)
 
                 ]),
-                Expires = DateTime.UtcNow.AddMinutes(configuration.GetValue<int>("Jwt:ExpirationInMinutes")),
+                Expires = DateTime.UtcNow.AddMinutes(jwtOptions.ExpirationInMinutes),
                 SigningCredentials = credentials,
-                Issuer = configuration["Jwt:Issuer"],
-                Audience = configuration["Jwt:Audience"]
+                Issuer = jwtOptions.Issuer,
+                Audience = jwtOptions.Audience,
             };
 
             foreach (var role in user.Roles)

@@ -1,12 +1,14 @@
-﻿using IdentityApp.Users.Models;
-using IdentityApp.Extensions;
+﻿using IdentityApp.Common.Abstractions.ApiResults;
+using IdentityApp.Common.Configuration;
+using Microsoft.Extensions.Options;
 using IdentityApp.Users.Errors;
-using IdentityApp.Common.Abstractions.ApiResults;
+using IdentityApp.Users.Models;
+using IdentityApp.Extensions;
 
 namespace IdentityApp.Users.Validators.UserValidators
 {
     public sealed class UserValidator(
-        IConfiguration configuration) : IUserValidator
+        IOptions<UserVerificationOptions> options) : IUserValidator
     {
         public Result<User> Validate(User? userToValidate, LoginUserRequest inputRequest)
         {
@@ -50,8 +52,8 @@ namespace IdentityApp.Users.Validators.UserValidators
 
         private void UpdateLoginAttempts(User user)
         {
-            var maxLogginAttempts = configuration.GetValue<int>("UserVerification:MaxLoginAttempts");
-            var blockExpireOnUtc = configuration.GetValue<int>("UserVerification:BlockUserExpirationTimeInMinutes");
+            var maxLogginAttempts = options.Value.MaxLoginAttempts;
+            var blockExpireOnUtc = options.Value.BlockUserExpirationTimeInMinutes;
 
             if (user.LoginAttemps >= maxLogginAttempts)
             {

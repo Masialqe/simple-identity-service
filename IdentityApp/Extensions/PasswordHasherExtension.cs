@@ -4,17 +4,17 @@ namespace IdentityApp.Extensions
 {
     public static class PasswordHasherExtension
     {
-        private const int SALT_SIZE = 16;
-        private const int HASH_SIZE = 32;
-        private const int ITERATIONS_COUNT = 100_000;
+        private const int SaltSize = 16;
+        private const int HashSize = 32;
+        private const int IterationsCount = 100_000;
 
-        private static HashAlgorithmName Algorithm = HashAlgorithmName.SHA512;
+        private static HashAlgorithmName _algorithm = HashAlgorithmName.SHA512;
 
         public static string Hash(this string password)
         {
-            byte[] salt = RandomNumberGenerator.GetBytes(SALT_SIZE);
+            byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
             byte[] hash = Rfc2898DeriveBytes.Pbkdf2(password,
-                salt, ITERATIONS_COUNT, Algorithm, HASH_SIZE);
+                salt, IterationsCount, _algorithm, HashSize);
 
             return $"{Convert.ToHexString(hash)}-{Convert.ToHexString(salt)}";
         }
@@ -26,7 +26,7 @@ namespace IdentityApp.Extensions
             byte[] salt = Convert.FromHexString(parts[1]);
 
             byte[] inputHash = Rfc2898DeriveBytes.Pbkdf2(input,
-                salt, ITERATIONS_COUNT, Algorithm, HASH_SIZE);
+                salt, IterationsCount, _algorithm, HashSize);
 
             return CryptographicOperations.FixedTimeEquals(hash, inputHash);
         }

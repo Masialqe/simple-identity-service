@@ -5,7 +5,7 @@ namespace IdentityApp.Common.Configuration
 {
     public sealed class JwtOptions
     {
-        public static string SectionName = "Jwt";
+        public static readonly string SectionName = "Jwt";
 
         [Required]
         public string? Issuer { get; set; }

@@ -5,7 +5,7 @@
         public static WebApplication RunAplication(this WebApplication app)
         {
             var logger = app.Services.GetRequiredService<ILogger<WebApplication>>();
-
+            
             try
             {
                 app.Run();
