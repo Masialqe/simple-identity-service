@@ -20,7 +20,7 @@ namespace IdentityApp.Common.Abstractions.ApiResults
                 errorType switch
                 {
                     ErrorType.BadRequest => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
-                    ErrorType.Unauthorize => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5",
+                    ErrorType.Unauthorized => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5",
                     ErrorType.Forbidden => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.3",
                     ErrorType.Conflict => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.8",
                     _ => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1"

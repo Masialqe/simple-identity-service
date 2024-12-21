@@ -23,8 +23,8 @@ namespace IdentityApp.Common.Abstractions.Errors
         public static Error BadRequest(string description)
             => new(StatusCodes.Status400BadRequest, description, ErrorType.BadRequest);
 
-        public static Error Unauthorize(string description)
-            => new(StatusCodes.Status401Unauthorized, description, ErrorType.Unauthorize);
+        public static Error Unauthorized(string description)
+            => new(StatusCodes.Status401Unauthorized, description, ErrorType.Unauthorized);
 
         public static Error Conflict(string description)
             => new(StatusCodes.Status409Conflict, description, ErrorType.Conflict);
@@ -40,7 +40,7 @@ namespace IdentityApp.Common.Abstractions.Errors
     public enum ErrorType
     {
         BadRequest = 0,
-        Unauthorize = 1,
+        Unauthorized = 1,
         Conflict = 2,
         Failure = 3,
         Forbidden = 4,

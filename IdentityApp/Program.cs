@@ -11,8 +11,6 @@ using FluentValidation;
 using Serilog;
 
 //Aspire Postgre + database configure
-//Change options inside of services
-//
 
 var builder = WebApplication.CreateBuilder(args);
 

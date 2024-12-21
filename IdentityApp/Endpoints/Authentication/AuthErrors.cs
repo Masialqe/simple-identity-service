@@ -4,6 +4,6 @@ namespace IdentityApp.Endpoints.Authentication
 {
     public static class AuthErrors
     {
-        public static Error InvalidApiKeyError => Error.Unauthorize("Invalid api key.");
+        public static Error InvalidApiKeyError => Error.Unauthorized("Invalid api key.");
     }
 }

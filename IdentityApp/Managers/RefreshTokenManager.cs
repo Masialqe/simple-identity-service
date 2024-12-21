@@ -1,15 +1,17 @@
 ﻿using IdentityApp.Users.Infrastructure.Interfaces;
 using IdentityApp.Managers.Interrfaces;
 using System.Security.Cryptography;
+using IdentityApp.Common.Configuration;
 using IdentityApp.Users.Models;
+using Microsoft.Extensions.Options;
 
 namespace IdentityApp.Managers
 {
     public sealed class RefreshTokenManager(
         ITokenRepository tokenRepository,
-        IConfiguration configuration) : IRefreshTokenManager
+        IOptions<JwtOptions> options) : IRefreshTokenManager
     {
-        private const int REFRESH_TOKEN_LENGTH = 128;
+        private const int RefreshTokenLength = 128;
 
         public async Task<string> CreateRefreshToken(User user)
         {
@@ -24,12 +26,12 @@ namespace IdentityApp.Managers
         }
 
         public string GenerateRefreshTokenValue()
-            => Convert.ToBase64String(RandomNumberGenerator.GetBytes(REFRESH_TOKEN_LENGTH));
+            => Convert.ToBase64String(RandomNumberGenerator.GetBytes(RefreshTokenLength));
 
         public DateTime GenerateTokenExpirationDate()
         {
-            var tokenExpireOnUtc = configuration.GetValue<int>("Jwt:RefreshTokenExpireTimeInDays");
-            return DateTime.UtcNow.AddDays(tokenExpireOnUtc);
+            var refreshTokenExpireTimeInDays = options.Value.RefreshTokenExpireTimeInDays;
+            return DateTime.UtcNow.AddDays(refreshTokenExpireTimeInDays);
         }
     }
 }

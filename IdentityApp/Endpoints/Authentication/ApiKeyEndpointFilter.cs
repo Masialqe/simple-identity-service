@@ -1,16 +1,19 @@
 ﻿using IdentityApp.Common.Abstractions.ApiResults;
+using IdentityApp.Common.Configuration;
 using IdentityApp.Common.Exceptions;
+using Microsoft.Extensions.Options;
 
 namespace IdentityApp.Endpoints.Authentication
 {
     public sealed class ApiKeyEndpointFilter(
-        IConfiguration configuration) : IEndpointFilter
+        IOptions<SecretsOptions> options) : IEndpointFilter
     {
+        private const string ApiKeyHeaderName = "X-Api-Key";
         public async ValueTask<object?> InvokeAsync(
             EndpointFilterInvocationContext context, EndpointFilterDelegate next)
         {
-            var requestApiKey = context.HttpContext.Request.Headers[ApiKeyOptions.API_KEY_HEADER_NAME];
-            var apiKey = configuration.GetValue<string>(ApiKeyOptions.API_KEY_VALUE);
+            var requestApiKey = context.HttpContext.Request.Headers[ApiKeyHeaderName];
+            var apiKey = options.Value.ApiKey;
 
             if (!IsApiKeyValid(requestApiKey, apiKey))
                 return Result.Failure(AuthErrors.InvalidApiKeyError).ToProblemDetails();

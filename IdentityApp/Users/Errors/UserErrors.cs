@@ -8,6 +8,6 @@ namespace IdentityApp.Users.Errors
     {
         public static Error UserAlreadyExistsError => Error.Conflict("Cannot create a user.");
         public static Error UserBlockedError => Error.Forbidden("Access Denied.");
-        public static Error InvalidUserError => Error.Unauthorize("Invalid user credentials.");
+        public static Error InvalidUserError => Error.Unauthorized("Invalid user credentials.");
     }
 }
