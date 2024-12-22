@@ -10,9 +10,10 @@ using FluentValidation;
 
 namespace IdentityApp.Users
 {
+    public record CreateRoleRequest(string roleName);
+
     public static class CreateRole
     {
-        public record CreateRoleRequest(string roleName);
 
         public sealed class Validator : AbstractValidator<CreateRoleRequest>
         {
@@ -32,7 +33,7 @@ namespace IdentityApp.Users
                     .WithTags("Admin");
             }
         }
-        private static async Task<IResult> Handler(
+        public static async Task<IResult> Handler(
                  CreateRoleRequest request,
                  IRoleRepository roleRepository,
                  ILogger<Endpoint> logger)

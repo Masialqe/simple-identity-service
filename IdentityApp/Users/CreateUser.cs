@@ -37,7 +37,7 @@ namespace IdentityApp.Users
                     .WithTags("Admin");
             }
         }
-        private static async Task<IResult> Handler(
+        public static async Task<IResult> Handler(
                   CreateUserRequest request,
                   IUserRepository userRepository,
                   IRoleRepository roleRepository,
