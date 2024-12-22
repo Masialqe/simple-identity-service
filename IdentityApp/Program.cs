@@ -11,6 +11,7 @@ using FluentValidation;
 using Serilog;
 
 //Aspire Postgre + database configure
+//Add password policy
 
 var builder = WebApplication.CreateBuilder(args);
 

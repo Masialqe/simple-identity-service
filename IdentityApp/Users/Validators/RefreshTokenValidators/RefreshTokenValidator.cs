@@ -34,7 +34,7 @@ namespace IdentityApp.Users.Validators.RefreshTokenValidators
             RefreshToken refreshToken, RefreshUserRequest request)
         {
             var newestToken = await tokenRepository.GetNewestRefreshTokenPerUserAsync(refreshToken.UserId);
-            var currentUserAddress = httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
+            var currentUserAddress = GetCurrentUserAddressAsString();
 
             if (newestToken is null)
                 return true;
@@ -42,5 +42,8 @@ namespace IdentityApp.Users.Validators.RefreshTokenValidators
             return newestToken != request.refreshToken
                 || refreshToken.User?.SourceAddres != currentUserAddress;
         }
+
+        private string GetCurrentUserAddressAsString()
+            => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString()!;
     }
 }
