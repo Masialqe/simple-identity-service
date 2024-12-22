@@ -55,7 +55,9 @@ if (!app.Environment.IsDevelopment())
 
 app.MapEndpoints();
 
-app.UseExceptionHandler(); 
+app.UseExceptionHandler();
+
+app.UseMiddleware<RequestLoggingExtensionMiddleware>();
 app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();  
