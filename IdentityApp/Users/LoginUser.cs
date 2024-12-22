@@ -3,10 +3,10 @@ using IdentityApp.Users.Validators.UserValidators;
 using IdentityApp.Common.Abstractions.ApiResults;
 using IdentityApp.Managers.Interrfaces;
 using IdentityApp.Endpoints.Validation;
+using IdentityApp.Endpoints.Responses;
 using IdentityApp.Users.Models;
 using IdentityApp.Endpoints;
 using FluentValidation;
-using IdentityApp.Endpoints.Responses;
 
 
 namespace IdentityApp.Users

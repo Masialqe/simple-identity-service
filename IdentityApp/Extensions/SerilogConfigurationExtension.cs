@@ -8,7 +8,6 @@ namespace IdentityApp.Extensions
 {
     public static class SerilogConfigurationExtension
     {
-        [Obsolete]
         public static WebApplicationBuilder ConfigureSerilog(this WebApplicationBuilder builder)
         {
             builder.Host.UseSerilog((ctx, lc) => lc

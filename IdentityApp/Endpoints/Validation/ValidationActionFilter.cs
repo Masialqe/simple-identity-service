@@ -1,6 +1,6 @@
-﻿using FluentValidation;
-using IdentityApp.Common.Abstractions.ApiResults;
+﻿using IdentityApp.Common.Abstractions.ApiResults;
 using IdentityApp.Common.Abstractions.Errors;
+using FluentValidation;
 
 namespace IdentityApp.Endpoints.Validation
 {

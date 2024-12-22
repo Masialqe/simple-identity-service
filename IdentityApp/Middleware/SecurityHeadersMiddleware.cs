@@ -15,7 +15,7 @@ namespace IdentityApp.Middleware
                 "frame-ancestors 'none';"
             ));
 
-            //context.Response.Headers.Remove("server");
+            context.Response.Headers.Remove("Server");
 
             return _next(context);
         }

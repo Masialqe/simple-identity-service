@@ -1,9 +1,9 @@
 ﻿using IdentityApp.Users.Infrastructure.Interfaces;
 using IdentityApp.Managers.Interrfaces;
-using System.Security.Cryptography;
 using IdentityApp.Common.Configuration;
-using IdentityApp.Users.Models;
 using Microsoft.Extensions.Options;
+using System.Security.Cryptography;
+using IdentityApp.Users.Models;
 
 namespace IdentityApp.Managers
 {
