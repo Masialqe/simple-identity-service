@@ -1,7 +1,7 @@
 ﻿using IdentityApp.Users.Infrastructure.Interfaces;
+using IdentityApp.Common.Abstractions.ApiResults;
 using IdentityApp.Users.Models;
 using IdentityApp.Users.Errors;
-using IdentityApp.Common.Abstractions.ApiResults;
 
 namespace IdentityApp.Users.Validators.RefreshTokenValidators
 {

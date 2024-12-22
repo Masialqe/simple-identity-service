@@ -5,6 +5,8 @@ namespace IdentityApp.Users.Validators.RefreshTokenValidators
 {
     public interface IRefreshTokenValidator
     {
-        Task<Result> ValidateAsync(RefreshToken? refreshToken, RefreshUserRequest request);
+        Task<Result> ValidateAsync(
+            RefreshToken? refreshToken, 
+            RefreshUserRequest request);
     }
 }
