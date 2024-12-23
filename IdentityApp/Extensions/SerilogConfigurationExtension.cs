@@ -37,16 +37,16 @@ namespace IdentityApp.Extensions
                         options.ResourceAttributes.Add(otelResourceAttribute, otelResourceAttributeValue);
 
                     })
-                    .WriteTo.MSSqlServer(
-                        connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
-                        sinkOptions: new MSSqlServerSinkOptions
-                        {
-                            TableName = "RequestLogs",
-                            AutoCreateSqlTable = true,
-                        },
-                        columnOptions: GetColumnOptions(),
-                        restrictedToMinimumLevel: LogEventLevel.Error)
-                    .ReadFrom.Configuration(ctx.Configuration)
+                    //.WriteTo.MSSqlServer(
+                    //    connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
+                    //    sinkOptions: new MSSqlServerSinkOptions
+                    //    {
+                    //        TableName = "RequestLogs",
+                    //        AutoCreateSqlTable = true,
+                    //    },
+                    //    columnOptions: GetColumnOptions(),
+                    //    restrictedToMinimumLevel: LogEventLevel.Error)
+                    //.ReadFrom.Configuration(ctx.Configuration)
             );
             return builder;
         }

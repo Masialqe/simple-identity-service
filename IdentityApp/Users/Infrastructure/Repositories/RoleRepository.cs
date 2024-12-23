@@ -26,10 +26,8 @@ namespace IdentityApp.Users.Infrastructure.Repositories
             CancellationToken cancellationToken = default)
         {
             var result = await context.Roles
-            .Where(x => names.Contains(
-                EF.Functions.Collate(x.Name, "Polish_CI_AS")
-            ))
-            .ToListAsync(cancellationToken);
+                .Where(x => names.Contains(x.Name))
+                .ToListAsync(cancellationToken);
 
             return result;
         }

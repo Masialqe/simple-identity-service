@@ -5,6 +5,7 @@ using IdentityApp.Managers.Interrfaces;
 using IdentityApp.Endpoints.Validation;
 using IdentityApp.Endpoints.Responses;
 using IdentityApp.Users.Models;
+using IdentityApp.Users.Errors;
 using IdentityApp.Endpoints;
 using FluentValidation;
 
@@ -43,19 +44,17 @@ namespace IdentityApp.Users
         {
             var user = await userRepository.GetUserByLoginAsync(
                 request.login, httpContextAccessor.HttpContext?.RequestAborted ?? default);
+            if (user is null)
+                return UserErrors.UserDoesntExistsError.ToProblemDetails();
 
-            var userValidationResult = userValidator.Validate(user, request);
-
+            var userValidationResult = ValidateUser(user, userValidator, request);
             if (userValidationResult.IsFailure)
-            {
-                await userRepository.UpdateUserAsync(user);
-                return userValidationResult.ToProblemDetails();
-            }
+                return await HandleValidationFailure(user, userRepository, userValidationResult);
 
-            UpdateUsersMetadata(user, httpContextAccessor);
-            await userRepository.UpdateUserAsync(user);
+            await UpdateUsersMetadata(user, userRepository, httpContextAccessor);
 
             var response = await CreateLoginUserResponse(user, tokenManager);
+
             logger.LogInformation("User {UserLogin} has been logged in.", user?.Login);
 
             return ApiResponseFactory.Ok(response);
@@ -68,13 +67,36 @@ namespace IdentityApp.Users
             return new LoginUserResponse(accessToken, refreshToken);
         }
 
-        private static void UpdateUsersMetadata(User? user, IHttpContextAccessor httpContextAccessor)
+        private static async Task<IResult> HandleValidationFailure(
+            User user,
+            IUserRepository userRepository,
+            Result userValidationResult)
+        {
+            await userRepository.UpdateUserAsync(user);
+            return userValidationResult.ToProblemDetails();
+        }
+
+        private static async Task UpdateUsersMetadata(
+            User? user, 
+            IUserRepository userRepository,
+            IHttpContextAccessor httpContextAccessor)
         {
             if(user is null)
                 throw new ArgumentNullException("Cannot assign value to empty object.");
 
             user.SourceAddres = httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString()!;
             user.LoginAttemps = 0;
+
+            await userRepository.UpdateUserAsync(user);
+        }
+
+        private static Result ValidateUser(
+            User user, 
+            IUserValidator userValidator,
+            LoginUserRequest request)
+        {
+            var validationResult = userValidator.Validate(user, request);
+            return validationResult;
         }
     }
 }

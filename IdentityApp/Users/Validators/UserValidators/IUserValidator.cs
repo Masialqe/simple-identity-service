@@ -5,6 +5,6 @@ namespace IdentityApp.Users.Validators.UserValidators
 {
     public interface IUserValidator
     {
-        Result<User> Validate(User? userToValidate, LoginUserRequest inputRequest);
+        Result<User> Validate(User userToValidate, LoginUserRequest inputRequest);
     }
 }
