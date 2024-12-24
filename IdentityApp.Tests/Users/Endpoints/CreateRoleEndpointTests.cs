@@ -1,22 +1,22 @@
-﻿using IdentityApp.Users.Infrastructure.Interfaces;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
-using IdentityApp.Users.Models;
-using IdentityApp.Users;
 using FluentAssertions;
 using NSubstitute;
+using IdentityApp.Users.CreateRole;
+using IdentityApp.Shared.Infrastructure.Interfaces;
+using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Tests.Users.Endpoints
 {
     public class CreateRoleEndpointTests
     {
         private readonly IRoleRepository roleRepository;
-        private readonly ILogger<CreateRole.Endpoint> logger;
+        private readonly ILogger<CreateRoleEndpoint.Endpoint> logger;
 
         public CreateRoleEndpointTests()
         {
             roleRepository = Substitute.For<IRoleRepository>();
-            logger = Substitute.For<ILogger<CreateRole.Endpoint>>();
+            logger = Substitute.For<ILogger<CreateRoleEndpoint.Endpoint>>();
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace IdentityApp.Tests.Users.Endpoints
             roleRepository.IsRoleAlreadyExists(request.roleName).Returns(true);
 
             // Act
-            var result = await CreateRole.Handler(request, roleRepository, logger);
+            var result = await CreateRoleEndpoint.Handler(request, roleRepository, logger);
 
             // Assert
             result.Should().NotBeNull();
@@ -45,7 +45,7 @@ namespace IdentityApp.Tests.Users.Endpoints
             roleRepository.IsRoleAlreadyExists(request.roleName).Returns(false);
 
             // Act
-            var result = await CreateRole.Handler(request, roleRepository, logger);
+            var result = await CreateRoleEndpoint.Handler(request, roleRepository, logger);
 
             // Assert
             result.Should().NotBeNull();

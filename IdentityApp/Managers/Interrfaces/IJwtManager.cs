@@ -1,4 +1,4 @@
-﻿using IdentityApp.Users.Models;
+﻿using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Managers.Interrfaces
 {

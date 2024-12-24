@@ -1,13 +1,12 @@
-﻿using IdentityApp.Users.Validators.UserValidators;
-using IdentityApp.Common.Abstractions.Errors;
+﻿using IdentityApp.Common.Abstractions.Errors;
 using IdentityApp.Common.Configuration;
 using Microsoft.Extensions.Options;
-using IdentityApp.Users.Errors;
-using IdentityApp.Users.Models;
 using IdentityApp.Extensions;
-using IdentityApp.Users;
 using FluentAssertions;
 using NSubstitute;
+using IdentityApp.Users.LoginUser;
+using IdentityApp.Shared.Domain.Errors;
+using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Tests.Users.Validators
 {
@@ -27,6 +26,22 @@ namespace IdentityApp.Tests.Users.Validators
 
             userValidator = new UserValidator(options);
             loginRequest = new LoginUserRequest("test", "test123");
+        }
+
+        [Fact]
+        public void ValidateUser_ShouldReturnError_WhenUserIsNull()
+        {
+            //Arrange
+            User? user = null;
+
+            //Act
+            var validationResult = userValidator.Validate(user, loginRequest);
+
+            //Assert
+            validationResult.Should().NotBeNull();
+            validationResult.IsFailure.Should().BeTrue();
+            validationResult.Error.Should().NotBeNull();
+            validationResult.Error.Should().Be(UserErrors.InvalidUserError);
         }
 
         [Fact]

@@ -3,9 +3,9 @@ using IdentityApp.Managers.Interrfaces;
 using IdentityApp.Common.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
-using IdentityApp.Users.Models;
 using System.Security.Claims;
 using System.Text;
+using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Managers
 {

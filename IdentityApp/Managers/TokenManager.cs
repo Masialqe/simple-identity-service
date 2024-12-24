@@ -1,7 +1,7 @@
-﻿using IdentityApp.Users.Infrastructure.Interfaces;
-using IdentityApp.Managers.Interrfaces;
+﻿using IdentityApp.Managers.Interrfaces;
 using IdentityApp.Common.Exceptions;
-using IdentityApp.Users.Models;
+using IdentityApp.Shared.Infrastructure.Interfaces;
+using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Managers
 {
