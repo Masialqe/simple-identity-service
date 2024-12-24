@@ -23,14 +23,15 @@ builder.Services.AddEndpoints();
 builder.Services.AddConfiguredOptions();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-builder.Services.AddDbContext<IdentityDbContext>(b =>
-{
-    b.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),options =>
-    {
-        options.EnableRetryOnFailure();
-        options.CommandTimeout(15);
-    });
-});
+//builder.Services.AddDbContext<IdentityDbContext>(b =>
+//{
+//    b.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),options =>
+//    {
+//        options.EnableRetryOnFailure();
+//        options.CommandTimeout(15);
+//    });
+//});
+builder.AddNpgsqlDbContext<IdentityDbContext>(connectionName: "identityDb");
 
 builder.ConfigureSerilog();
 
@@ -46,6 +47,7 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    await app.ConfigureDatabaseAsync();
     app.MapOpenApi();
 }
 

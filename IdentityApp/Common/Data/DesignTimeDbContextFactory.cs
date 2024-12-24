@@ -1,18 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore;
 
 namespace IdentityApp.Common.Data
 {
-    public class DesignTimeDbContextFactory(
-        IConfiguration configuration) : IDesignTimeDbContextFactory<IdentityDbContext>
+    public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<IdentityDbContext>
     {
         public IdentityDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<IdentityDbContext>();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            var builder = WebApplication.CreateBuilder(args);
+            builder.AddNpgsqlDbContext<IdentityDbContext>(connectionName: "identityDb");
 
-            return new IdentityDbContext(optionsBuilder.Options);
+            var app = builder.Build();
+            var scope = app.Services.CreateScope();
+            return scope.ServiceProvider.GetRequiredService<IdentityDbContext>();
         }
     }
-
 }

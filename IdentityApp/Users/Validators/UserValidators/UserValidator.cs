@@ -10,11 +10,8 @@ namespace IdentityApp.Users.Validators.UserValidators
     public sealed class UserValidator(
         IOptions<UserVerificationOptions> options) : IUserValidator
     {
-        public Result<User> Validate(User? userToValidate, LoginUserRequest inputRequest)
+        public Result<User> Validate(User userToValidate, LoginUserRequest inputRequest)
         {
-            if (userToValidate == null)
-                return UserErrors.InvalidUserError;
-
             var statusResult = HandleBlockedUser(userToValidate);
             if (statusResult.IsFailure) return statusResult.Error;
 

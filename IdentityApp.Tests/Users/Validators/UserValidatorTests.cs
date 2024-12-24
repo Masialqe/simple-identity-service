@@ -30,22 +30,6 @@ namespace IdentityApp.Tests.Users.Validators
         }
 
         [Fact]
-        public void ValidateUser_ShouldReturnError_WhenUserIsNull()
-        {
-            //Arrange
-            User? user = null;
-
-            //Act
-            var validationResult = userValidator.Validate(user, loginRequest);
-
-            //Assert
-            validationResult.Should().NotBeNull();
-            validationResult.IsFailure.Should().BeTrue();
-            validationResult.Error.Should().NotBeNull();
-            validationResult.Error.Should().Be(UserErrors.InvalidUserError);
-        }
-
-        [Fact]
         public void ValidateUser_ShouldReturnError_WhenUserIsBlocked()
         {
             //Arrange
