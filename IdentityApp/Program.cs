@@ -1,17 +1,13 @@
-using IdentityApp.Common.Configuration;
-using Microsoft.EntityFrameworkCore;
-using IdentityApp.Users.Validators;
+using IdentityApp.Shared.Infrastructure.Data;
+using IdentityApp.Shared.Infrastructure;
+using IdentityApp.Shared.Managers;
+using IdentityApp.Configuration;
 using IdentityApp.Extensions;
 using IdentityApp.Middleware;
 using IdentityApp.Endpoints;
-using IdentityApp.Managers;
+using IdentityApp.Users;
 using FluentValidation;
 using Serilog;
-using IdentityApp.Shared.Infrastructure;
-using IdentityApp.Shared.Infrastructure.Data;
-
-//Aspire Postgre + database configure
-//Add password policy
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,14 +19,7 @@ builder.Services.AddEndpoints();
 builder.Services.AddConfiguredOptions();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-builder.Services.AddDbContext<IdentityDbContext>(b =>
-{
-    b.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),options =>
-    {
-        options.EnableRetryOnFailure();
-        options.CommandTimeout(15);
-    });
-});
+builder.AddNpgsqlDbContext<IdentityDbContext>(connectionName: "identityDb");
 
 builder.ConfigureSerilog();
 
@@ -39,8 +28,8 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddManagers();
-builder.Services.AddValidators();
-builder.Services.AddRepositories();
+builder.Services.AddUserFeatures();
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 

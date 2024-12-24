@@ -1,4 +1,4 @@
-﻿using IdentityApp.Common.Abstractions.Errors;
+﻿using IdentityApp.Shared.Abstractions.Errors;
 
 namespace IdentityApp.Endpoints.Authentication
 {

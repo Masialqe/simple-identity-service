@@ -5,7 +5,7 @@ namespace IdentityApp.Shared.Infrastructure
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITokenRepository, TokenRepository>();

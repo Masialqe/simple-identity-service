@@ -1,19 +1,19 @@
-﻿using IdentityApp.Common.Abstractions.Errors;
-using IdentityApp.Common.Configuration;
+﻿using IdentityApp.Shared.Abstractions.Errors;
+using IdentityApp.Shared.Domain.Errors;
+using IdentityApp.Shared.Domain.Models;
 using Microsoft.Extensions.Options;
+using IdentityApp.Users.LoginUser;
+using IdentityApp.Configuration;
 using IdentityApp.Extensions;
 using FluentAssertions;
 using NSubstitute;
-using IdentityApp.Users.LoginUser;
-using IdentityApp.Shared.Domain.Errors;
-using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Tests.Users.Validators
 {
     public class UserValidatorTests
     {
         private readonly LoginUserRequest loginRequest;
-        private readonly UserValidator userValidator;
+        private readonly LoginUserValidator userValidator;
 
         public UserValidatorTests()
         {
@@ -24,7 +24,7 @@ namespace IdentityApp.Tests.Users.Validators
                 BlockUserExpirationTimeInMinutes = 1
             });
 
-            userValidator = new UserValidator(options);
+            userValidator = new LoginUserValidator(options);
             loginRequest = new LoginUserRequest("test", "test123");
         }
 

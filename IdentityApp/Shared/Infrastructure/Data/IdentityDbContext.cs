@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using IdentityApp.Shared.Domain.Models;
+﻿using IdentityApp.Shared.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityApp.Shared.Infrastructure.Data
 {

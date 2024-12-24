@@ -1,7 +1,5 @@
-﻿using IdentityApp.Common.Abstractions.ApiResults;
-using IdentityApp.Common.Abstractions.Errors;
-using IdentityApp.Users.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using IdentityApp.Shared.Abstractions.Errors;
+
 
 namespace IdentityApp.Shared.Domain.Errors
 {

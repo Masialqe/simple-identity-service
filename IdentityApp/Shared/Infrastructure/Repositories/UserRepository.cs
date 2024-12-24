@@ -1,8 +1,9 @@
-﻿using IdentityApp.Common.Exceptions;
-using Microsoft.EntityFrameworkCore;
-using IdentityApp.Shared.Infrastructure.Interfaces;
+﻿using IdentityApp.Shared.Infrastructure.Interfaces;
 using IdentityApp.Shared.Infrastructure.Data;
 using IdentityApp.Shared.Domain.Models;
+using IdentityApp.Shared.Exceptions;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace IdentityApp.Shared.Infrastructure.Repositories
 {

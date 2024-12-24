@@ -1,8 +1,8 @@
-﻿using IdentityApp.Common.Abstractions.ApiResults;
-using IdentityApp.Endpoints.Responses;
-using IdentityApp.Shared.Infrastructure.Interfaces;
+﻿using IdentityApp.Shared.Infrastructure.Interfaces;
+using IdentityApp.Shared.Abstractions.ApiResults;
 using IdentityApp.Shared.Domain.Errors;
 using IdentityApp.Shared.Domain.Models;
+using IdentityApp.Endpoints.Responses;
 
 namespace IdentityApp.Users.CreateRole
 {

@@ -1,12 +1,12 @@
-﻿using IdentityApp.Common.Abstractions.Errors;
+﻿using IdentityApp.Shared.Infrastructure.Interfaces;
+using IdentityApp.Shared.Abstractions.Errors;
+using IdentityApp.Shared.Domain.Errors;
+using IdentityApp.Shared.Domain.Models;
+using IdentityApp.Users.RefreshUser;
 using Microsoft.AspNetCore.Http;
 using FluentAssertions;
 using NSubstitute;
 using System.Net;
-using IdentityApp.Users.RefreshUser;
-using IdentityApp.Shared.Infrastructure.Interfaces;
-using IdentityApp.Shared.Domain.Errors;
-using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Tests.Users.Validators
 {
@@ -14,7 +14,7 @@ namespace IdentityApp.Tests.Users.Validators
     {
         private readonly ITokenRepository tokenRepository;
         private readonly IHttpContextAccessor httpContextAccessor;
-        private readonly RefreshTokenValidator refreshTokenValidator;
+        private readonly RefreshUserValidator refreshTokenValidator;
         private readonly RefreshUserRequest refreshTokenRequest;
 
         private readonly string ValidToken = "validToken";
@@ -25,7 +25,7 @@ namespace IdentityApp.Tests.Users.Validators
             tokenRepository = Substitute.For<ITokenRepository>();
             httpContextAccessor = Substitute.For<IHttpContextAccessor>();
 
-            refreshTokenValidator = new RefreshTokenValidator(tokenRepository, httpContextAccessor);
+            refreshTokenValidator = new RefreshUserValidator(tokenRepository, httpContextAccessor);
 
             refreshTokenRequest = new RefreshUserRequest(ValidToken);
         }
@@ -82,8 +82,6 @@ namespace IdentityApp.Tests.Users.Validators
             validationResult.IsFailure.Should().BeTrue();
             validationResult.Error.Should().NotBeNull();
             validationResult.Error.Should().Be(TokenErrors.AccessDeniedError);
-
-            await tokenRepository.Received(1).DeleteRefreshTokensPerUserAsync(refreshToken.UserId);
         }
 
         [Fact]
@@ -106,6 +104,25 @@ namespace IdentityApp.Tests.Users.Validators
             validationResult.IsFailure.Should().BeTrue();
             validationResult.Error.Should().NotBeNull();
             validationResult.Error.Should().Be(TokenErrors.AccessDeniedError);
+        }
+
+        [Fact]
+        public async Task ValidateRefreshToken_ShouldDeleteAllTokens_WhenReauthenticationNeeded()
+        {
+            //Arrange
+            var user = GetExampleUser(ValidIpAddress);
+
+            var refreshToken = GetRefreshToken(user);
+
+            tokenRepository.GetNewestRefreshTokenPerUserAsync(refreshToken.UserId).Returns("differentToken");
+
+            SetupHttpContext(ValidIpAddress);
+
+            //Act
+            var validationResult = await refreshTokenValidator.ValidateAsync(refreshToken, refreshTokenRequest);
+
+            //Assert
+            await tokenRepository.Received(1).DeleteRefreshTokensPerUserAsync(refreshToken.UserId);
         }
 
         [Fact]
