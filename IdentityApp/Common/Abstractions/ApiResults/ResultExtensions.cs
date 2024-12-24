@@ -26,5 +26,12 @@ namespace IdentityApp.Common.Abstractions.ApiResults
                     _ => "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1"
                 };
         }
+
+        public static IResult ToProblemDetails(this Error error)
+        {
+            var errorAsResult = (Result) error;
+
+            return errorAsResult.ToProblemDetails();
+        }
     }
 }
