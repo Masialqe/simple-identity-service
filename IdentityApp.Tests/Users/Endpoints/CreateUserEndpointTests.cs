@@ -1,11 +1,11 @@
-﻿using IdentityApp.Users.Infrastructure.Interfaces;
-using IdentityApp.Common.Exceptions;
+﻿using IdentityApp.Common.Exceptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
-using IdentityApp.Users.Models;
-using IdentityApp.Users;
 using FluentAssertions;
 using NSubstitute;
+using IdentityApp.Users.CreateUser;
+using IdentityApp.Shared.Infrastructure.Interfaces;
+using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Tests.Users.Endpoints
 {

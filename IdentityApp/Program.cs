@@ -1,14 +1,14 @@
 using IdentityApp.Common.Configuration;
-using IdentityApp.Users.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using IdentityApp.Users.Validators;
-using IdentityApp.Common.Data;
 using IdentityApp.Extensions;
 using IdentityApp.Middleware;
 using IdentityApp.Endpoints;
 using IdentityApp.Managers;
 using FluentValidation;
 using Serilog;
+using IdentityApp.Shared.Infrastructure;
+using IdentityApp.Shared.Infrastructure.Data;
 
 //Aspire Postgre + database configure
 //Add password policy
@@ -23,15 +23,14 @@ builder.Services.AddEndpoints();
 builder.Services.AddConfiguredOptions();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-//builder.Services.AddDbContext<IdentityDbContext>(b =>
-//{
-//    b.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),options =>
-//    {
-//        options.EnableRetryOnFailure();
-//        options.CommandTimeout(15);
-//    });
-//});
-builder.AddNpgsqlDbContext<IdentityDbContext>(connectionName: "identityDb");
+builder.Services.AddDbContext<IdentityDbContext>(b =>
+{
+    b.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),options =>
+    {
+        options.EnableRetryOnFailure();
+        options.CommandTimeout(15);
+    });
+});
 
 builder.ConfigureSerilog();
 
@@ -47,7 +46,6 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    await app.ConfigureDatabaseAsync();
     app.MapOpenApi();
 }
 

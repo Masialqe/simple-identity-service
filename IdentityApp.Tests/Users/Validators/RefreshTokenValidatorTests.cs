@@ -1,13 +1,12 @@
-﻿using IdentityApp.Users.Validators.RefreshTokenValidators;
-using IdentityApp.Users.Infrastructure.Interfaces;
-using IdentityApp.Common.Abstractions.Errors;
+﻿using IdentityApp.Common.Abstractions.Errors;
 using Microsoft.AspNetCore.Http;
-using IdentityApp.Users.Errors;
-using IdentityApp.Users.Models;
-using IdentityApp.Users;
 using FluentAssertions;
 using NSubstitute;
 using System.Net;
+using IdentityApp.Users.RefreshUser;
+using IdentityApp.Shared.Infrastructure.Interfaces;
+using IdentityApp.Shared.Domain.Errors;
+using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Tests.Users.Validators
 {
