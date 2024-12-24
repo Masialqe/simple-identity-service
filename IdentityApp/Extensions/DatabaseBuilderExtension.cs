@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using IdentityApp.Shared.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
-using IdentityApp.Shared.Infrastructure.Data;
 
 namespace IdentityApp.Extensions
 {

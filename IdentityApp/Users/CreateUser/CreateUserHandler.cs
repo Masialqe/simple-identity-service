@@ -1,10 +1,10 @@
-﻿using IdentityApp.Common.Abstractions.ApiResults;
-using IdentityApp.Endpoints.Responses;
-using IdentityApp.Common.Exceptions;
-using IdentityApp.Extensions;
-using IdentityApp.Shared.Infrastructure.Interfaces;
-using IdentityApp.Shared.Domain.Errors;
+﻿using IdentityApp.Shared.Infrastructure.Interfaces;
+using IdentityApp.Shared.Abstractions.ApiResults;
 using IdentityApp.Shared.Domain.Models;
+using IdentityApp.Shared.Domain.Errors;
+using IdentityApp.Endpoints.Responses;
+using IdentityApp.Shared.Exceptions;
+using IdentityApp.Extensions;
 
 namespace IdentityApp.Users.CreateUser
 {

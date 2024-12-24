@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using IdentityApp.Common.Exceptions;
-using IdentityApp.Shared.Infrastructure.Interfaces;
+﻿using IdentityApp.Shared.Infrastructure.Interfaces;
 using IdentityApp.Shared.Infrastructure.Data;
 using IdentityApp.Shared.Domain.Models;
+using Microsoft.EntityFrameworkCore;
+using IdentityApp.Shared.Exceptions;
 
 namespace IdentityApp.Shared.Infrastructure.Repositories
 {
@@ -26,10 +26,8 @@ namespace IdentityApp.Shared.Infrastructure.Repositories
             CancellationToken cancellationToken = default)
         {
             var result = await context.Roles
-            .Where(x => names.Contains(
-                EF.Functions.Collate(x.Name, "Polish_CI_AS")
-            ))
-            .ToListAsync(cancellationToken);
+                .Where(x => names.Contains(x.Name))
+                .ToListAsync(cancellationToken);
 
             return result;
         }

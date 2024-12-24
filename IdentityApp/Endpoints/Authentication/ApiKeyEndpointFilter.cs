@@ -1,7 +1,7 @@
-﻿using IdentityApp.Common.Abstractions.ApiResults;
-using IdentityApp.Common.Configuration;
-using IdentityApp.Common.Exceptions;
+﻿using IdentityApp.Shared.Abstractions.ApiResults;
+using IdentityApp.Shared.Exceptions;
 using Microsoft.Extensions.Options;
+using IdentityApp.Configuration;
 
 namespace IdentityApp.Endpoints.Authentication
 {
