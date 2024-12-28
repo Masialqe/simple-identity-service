@@ -1,8 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using Serilog.Sinks.MSSqlServer;
-using Serilog.Events;
-using System.Data;
-using Serilog;
+﻿using Serilog;
 
 namespace IdentityApp.Extensions
 {
@@ -37,65 +33,8 @@ namespace IdentityApp.Extensions
                         options.ResourceAttributes.Add(otelResourceAttribute, otelResourceAttributeValue);
 
                     })
-                    //.WriteTo.MSSqlServer(
-                    //    connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
-                    //    sinkOptions: new MSSqlServerSinkOptions
-                    //    {
-                    //        TableName = "RequestLogs",
-                    //        AutoCreateSqlTable = true,
-                    //    },
-                    //    columnOptions: GetColumnOptions(),
-                    //    restrictedToMinimumLevel: LogEventLevel.Error)
-                    //.ReadFrom.Configuration(ctx.Configuration)
             );
             return builder;
-        }
-
-        private static ColumnOptions GetColumnOptions()
-        {
-            return new ColumnOptions
-            {
-                AdditionalColumns = new Collection<SqlColumn>
-                {
-                    new SqlColumn
-                    { 
-                        ColumnName = "HttpMethod", 
-                        PropertyName = "RequestMethod", 
-                        DataType = SqlDbType.NVarChar, 
-                        DataLength = 10 
-                    },
-
-                    new SqlColumn
-                    { 
-                        ColumnName = "HttpRequestPath", 
-                        PropertyName = "RequestPath", 
-                        DataType = SqlDbType.NVarChar, 
-                        DataLength = 128 
-                    },
-
-                    new SqlColumn
-                    { 
-                        ColumnName = "HttpRequestMessage", 
-                        PropertyName = "Message", 
-                        DataType = SqlDbType.NVarChar, 
-                        DataLength = 500 
-                    },
-
-                    new SqlColumn
-                    { 
-                        ColumnName = "HttpStatusCode", 
-                        PropertyName = "StatusCode", 
-                        DataType = SqlDbType.Int
-                    },
-
-                    new SqlColumn
-                    { 
-                        ColumnName = "HttpRequestSource",
-                        PropertyName = "RequestSource", 
-                        DataType = SqlDbType.NVarChar, 
-                        DataLength = 40 }
-                }
-            };
         }
     }
 }

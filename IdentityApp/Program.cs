@@ -54,4 +54,4 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<SecurityHeadersMiddleware>();
 
-app.RunAplication();
+await app.RunAplication();
