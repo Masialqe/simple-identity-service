@@ -2,12 +2,13 @@
 {
     public static class AppRunnerExtension
     {
-        public static WebApplication RunAplication(this WebApplication app)
+        public async static Task<WebApplication> RunAplication(this WebApplication app)
         {
             var logger = app.Services.GetRequiredService<ILogger<WebApplication>>();
             
             try
             {
+                await app.ConfigureDatabaseAsync();
                 app.Run();
                 logger.LogInformation("App has been started successfully. {TimeStamp}", DateTime.Now);
             }
