@@ -5,6 +5,10 @@ using FluentValidation;
 
 namespace IdentityApp.Users.CreateUser
 {
+    /// <summary>
+    /// Validator for the <see cref="CreateUserRequest"/> class.
+    /// Ensures that the login, password, and roles fields are valid.
+    /// </summary>
     public sealed class Validator : AbstractValidator<CreateUserRequest>
     {
         public Validator()
@@ -15,6 +19,9 @@ namespace IdentityApp.Users.CreateUser
         }
     }
 
+    /// <summary>
+    /// Defines the endpoint for creating a new user.
+    /// </summary>
     public sealed class Endpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)

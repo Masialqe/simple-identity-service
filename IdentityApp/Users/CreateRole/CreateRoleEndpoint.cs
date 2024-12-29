@@ -5,6 +5,10 @@ using FluentValidation;
 
 namespace IdentityApp.Users.CreateRole
 {
+    /// <summary>
+    /// Validator for the <see cref="CreateRoleRequest"/> class.
+    /// Ensures that the role name is valid.
+    /// </summary>
     public sealed class Validator : AbstractValidator<CreateRoleRequest>
     {
         public Validator()
@@ -13,6 +17,9 @@ namespace IdentityApp.Users.CreateRole
         }
     }
 
+    /// <summary>
+    /// Defines the endpoint for creating a new role.
+    /// </summary>
     public sealed class CreateRoleEndpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)

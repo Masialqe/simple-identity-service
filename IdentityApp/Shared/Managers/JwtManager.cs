@@ -9,10 +9,18 @@ using System.Text;
 
 namespace IdentityApp.Shared.Managers
 {
+    /// <summary>
+    /// A service for managing JWT tokens, including creation of access tokens for users.
+    /// </summary>
     public sealed class JwtManager(
         IOptions<JwtOptions> options,
         IOptions<SecretsOptions> secrets) : IJwtManager
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JwtManager"/> class.
+        /// </summary>
+        /// <param name="options">The JWT options containing expiration, issuer, and audience details.</param>
+        /// <param name="secrets">The secrets options containing the secret key for signing tokens.</param>
         public string CreateAccessToken(User user)
         {
             var secretKey = secrets.Value.SecretKey!;
@@ -27,6 +35,12 @@ namespace IdentityApp.Shared.Managers
             return token;
         }
 
+        /// <summary>
+        /// Creates a JWT access token for the specified <see cref="User"/>.
+        /// </summary>
+        /// <param name="user">The user for whom the access token is being created.</param>
+        /// <returns>A JWT access token as a string.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="user"/> is null.</exception>
         private SecurityTokenDescriptor CreateTokenDescriptor(User user, SigningCredentials credentials)
         {
             var jwtOptions = options.Value;

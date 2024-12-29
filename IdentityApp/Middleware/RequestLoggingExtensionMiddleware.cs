@@ -2,6 +2,10 @@
 
 namespace IdentityApp.Middleware
 {
+    /// <summary>
+    /// Extends Serilog request loggin by including CorrelationId.
+    /// </summary>
+    /// <param name="_next"></param>
     public class RequestLoggingExtensionMiddleware(
         RequestDelegate _next)
     {

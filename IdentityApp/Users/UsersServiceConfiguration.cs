@@ -5,6 +5,9 @@ using IdentityApp.Users.RefreshUser;
 
 namespace IdentityApp.Users
 {
+    /// <summary>
+    /// Adds all User related features to DI container.
+    /// </summary>
     public static class UsersServiceConfiguration
     {
         public static IServiceCollection AddUserFeatures(this IServiceCollection services)

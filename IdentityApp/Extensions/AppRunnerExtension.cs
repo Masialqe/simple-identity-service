@@ -2,7 +2,12 @@
 {
     public static class AppRunnerExtension
     {
-        public async static Task<WebApplication> RunAplication(this WebApplication app)
+        /// <summary>
+        /// Configures and runs the web application, logging any startup errors.
+        /// </summary>
+        /// <param name="app">The WebApplication instance to configure and run.</param>
+        /// <returns>The configured and running WebApplication instance.</returns>
+        public async static Task<WebApplication> RunApplication(this WebApplication app)
         {
             var logger = app.Services.GetRequiredService<ILogger<WebApplication>>();
 
@@ -10,14 +15,15 @@
             {
                 await app.ConfigureDatabaseAsync();
                 app.Run();
-                logger.LogInformation("App has been started successfully. {TimeStamp}", DateTime.Now);
+                logger.LogInformation("Application started and running successfully. {TimeStamp}", DateTime.UtcNow);
             }
             catch (Exception ex)
             {
-                logger.LogError("Failed to start application due to exception. {ExceptionMessage} - {Exception}", ex.Message, ex);
+                logger.LogError("Application failed to start due to an exception. {ExceptionMessage} - {Exception}", ex.Message, ex);
             }
 
             return app;
         }
+
     }
 }

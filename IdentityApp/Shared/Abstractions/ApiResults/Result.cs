@@ -4,6 +4,9 @@ namespace IdentityApp.Shared.Abstractions.ApiResults
 {
     public class Result
     {
+        /// <summary>
+        /// Represents the result of an operation, which can either be a success or a failure.
+        /// </summary>
         public Result(bool isSuccess, Error error)
         {
             if (isSuccess && error != Error.None ||
@@ -32,6 +35,10 @@ namespace IdentityApp.Shared.Abstractions.ApiResults
             => new(default, false, error);
     }
 
+    /// <summary>
+    /// Represents the result of an operation that returns a value, which can either be a success or a failure.
+    /// </summary>
+    /// <typeparam name="TValue">The type of the value returned by the operation.</typeparam>
     public sealed class Result<TValue> : Result
     {
         private readonly TValue? _value;

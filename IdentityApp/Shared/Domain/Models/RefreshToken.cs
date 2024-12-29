@@ -1,5 +1,8 @@
 ﻿namespace IdentityApp.Shared.Domain.Models
 {
+    /// <summary>
+    /// Represents a refresh token used for renewing authentication sessions.
+    /// </summary>
     public sealed class RefreshToken
     {
         public static RefreshToken Create(string token, User user, DateTime expireOnUtc)
