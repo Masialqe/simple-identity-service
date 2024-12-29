@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IdentityApp.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20241223130300_MoveToPostgre")]
-    partial class MoveToPostgre
+    [Migration("20241229141028_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace IdentityApp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("IdentityApp.Users.Models.RefreshToken", b =>
+            modelBuilder.Entity("IdentityApp.Shared.Domain.Models.RefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,7 +52,7 @@ namespace IdentityApp.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
-            modelBuilder.Entity("IdentityApp.Users.Models.Role", b =>
+            modelBuilder.Entity("IdentityApp.Shared.Domain.Models.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,7 +70,7 @@ namespace IdentityApp.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("IdentityApp.Users.Models.User", b =>
+            modelBuilder.Entity("IdentityApp.Shared.Domain.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,9 +134,9 @@ namespace IdentityApp.Migrations
                     b.ToTable("RoleUser");
                 });
 
-            modelBuilder.Entity("IdentityApp.Users.Models.RefreshToken", b =>
+            modelBuilder.Entity("IdentityApp.Shared.Domain.Models.RefreshToken", b =>
                 {
-                    b.HasOne("IdentityApp.Users.Models.User", "User")
+                    b.HasOne("IdentityApp.Shared.Domain.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -147,13 +147,13 @@ namespace IdentityApp.Migrations
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.HasOne("IdentityApp.Users.Models.Role", null)
+                    b.HasOne("IdentityApp.Shared.Domain.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IdentityApp.Users.Models.User", null)
+                    b.HasOne("IdentityApp.Shared.Domain.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)

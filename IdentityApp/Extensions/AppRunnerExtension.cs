@@ -5,7 +5,7 @@
         public async static Task<WebApplication> RunAplication(this WebApplication app)
         {
             var logger = app.Services.GetRequiredService<ILogger<WebApplication>>();
-            
+
             try
             {
                 await app.ConfigureDatabaseAsync();

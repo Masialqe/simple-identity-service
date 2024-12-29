@@ -1,7 +1,6 @@
 ﻿using IdentityApp.Shared.Infrastructure.Interfaces;
 using IdentityApp.Shared.Abstractions.ApiResults;
 using IdentityApp.Shared.Domain.Models;
-using IdentityApp.Shared.Domain.Errors;
 using IdentityApp.Endpoints.Responses;
 using IdentityApp.Shared.Exceptions;
 using IdentityApp.Extensions;
@@ -12,12 +11,15 @@ namespace IdentityApp.Users.CreateUser
     public sealed class CreateUserHandler(
         IUserRepository userRepository,
         IRoleRepository roleRepository,
+        ICreateUserValidator createUserValidator,
         ILogger<CreateUserHandler> logger) : ICreateUserHandler
     {
         public async Task<IResult> Handle(CreateUserRequest request)
         {
-            if (await userRepository.IsLoginAlreadyExists(request.login))
-                return UserErrors.UserAlreadyExistsError.ToProblemDetails();
+            var createUserValidationResult = await createUserValidator.ValidateAsync(request);
+
+            if (createUserValidationResult.IsFailure)
+                return createUserValidationResult.ToProblemDetails();
 
             var user = await CreateUserWithRoles(request);
 

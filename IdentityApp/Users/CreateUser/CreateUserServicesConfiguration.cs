@@ -7,6 +7,7 @@ namespace IdentityApp.Users.CreateRole
         public static IServiceCollection AddCreateUser(this IServiceCollection services)
         {
             services.AddScoped<ICreateUserHandler, CreateUserHandler>();
+            services.AddScoped<ICreateUserValidator, CreateUserValidator>();
 
             return services;
         }
