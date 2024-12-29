@@ -9,6 +9,7 @@ namespace IdentityApp.Configuration
             services.AddCongifuredOptions<JwtOptions>(JwtOptions.SectionName);
             services.AddCongifuredOptions<UserVerificationOptions>(UserVerificationOptions.SectionName);
             services.AddCongifuredOptions<SecretsOptions>(SecretsOptions.SectionName);
+            services.AddCongifuredOptions<PasswordOptions>(PasswordOptions.SectionName);
 
             return services;
         }

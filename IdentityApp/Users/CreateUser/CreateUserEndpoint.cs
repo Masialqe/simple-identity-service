@@ -9,8 +9,8 @@ namespace IdentityApp.Users.CreateUser
     {
         public Validator()
         {
-            RuleFor(r => r.login).NotEmpty().MinimumLength(5).MaximumLength(48);
-            RuleFor(r => r.password).NotEmpty().MinimumLength(5).MaximumLength(48);
+            RuleFor(r => r.login).NotEmpty().MinimumLength(1).MaximumLength(48);
+            RuleFor(r => r.password).NotEmpty().MinimumLength(1).MaximumLength(48);
             RuleFor(r => r.roles).NotEmpty();
         }
     }
