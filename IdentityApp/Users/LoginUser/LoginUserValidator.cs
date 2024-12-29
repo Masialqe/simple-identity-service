@@ -7,6 +7,9 @@ using IdentityApp.Extensions;
 
 namespace IdentityApp.Users.LoginUser
 {
+    /// <summary>
+    /// Validates a user's credentials during the login process, ensuring the user is active and the password is correct.
+    /// </summary>
     public sealed class LoginUserValidator(
         IOptions<UserVerificationOptions> options) : ILoginUserValidator
     {

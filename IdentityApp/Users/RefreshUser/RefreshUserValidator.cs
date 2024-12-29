@@ -5,6 +5,9 @@ using IdentityApp.Shared.Domain.Models;
 
 namespace IdentityApp.Users.RefreshUser
 {
+    /// <summary>
+    /// Validates the refresh token and determines if reauthentication is required.
+    /// </summary>
     public sealed class RefreshUserValidator(
         ITokenRepository tokenRepository,
         IHttpContextAccessor httpContextAccessor) : IRefreshUserValidator

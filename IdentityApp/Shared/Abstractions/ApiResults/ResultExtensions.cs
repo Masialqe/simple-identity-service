@@ -2,12 +2,21 @@
 
 namespace IdentityApp.Shared.Abstractions.ApiResults
 {
+    /// <summary>
+    /// Provides extension methods for converting <see cref="Result"/> and <see cref="Error"/> instances to <see cref="IResult"/> representing problem details.
+    /// </summary>
     public static class ResultExtensions
     {
+        /// <summary>
+        /// Converts a <see cref="Result"/> to a <see cref="ProblemDetails"/> response.
+        /// </summary>
+        /// <param name="result">The result to convert. Must be a failure (<see cref="Result.IsSuccess"/> is <see langword="false"/>).</param>
+        /// <returns>An <see cref="IResult"/> representing the problem details associated with the error.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if the result is successful (<see cref="Result.IsSuccess"/> is <see langword="true"/>).</exception>
         public static IResult ToProblemDetails(this Result result)
         {
             if (result.IsSuccess)
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Cannot convert a successful result to problem details.");
 
             return Results.Problem(
                 statusCode: result.Error.Code,
@@ -16,6 +25,11 @@ namespace IdentityApp.Shared.Abstractions.ApiResults
                 detail: result.Error.Description
                 );
 
+            /// <summary>
+            /// Returns the corresponding URI for a given <see cref="ErrorType"/>.
+            /// </summary>
+            /// <param name="errorType">The error type to map to a URI.</param>
+            /// <returns>A URI string that corresponds to the error type.</returns>
             static string GetType(ErrorType errorType) =>
                 errorType switch
                 {
@@ -27,6 +41,11 @@ namespace IdentityApp.Shared.Abstractions.ApiResults
                 };
         }
 
+        /// <summary>
+        /// Converts a <see cref="Error"/> to a <see cref="ProblemDetails"/> response by creating a <see cref="Result"/> from the error.
+        /// </summary>
+        /// <param name="error">The error to convert.</param>
+        /// <returns>An <see cref="IResult"/> representing the problem details associated with the error.</returns>
         public static IResult ToProblemDetails(this Error error)
         {
             var errorAsResult = (Result)error;

@@ -5,6 +5,10 @@ using FluentValidation;
 
 namespace IdentityApp.Users.LoginUser
 {
+    /// <summary>
+    /// Validator for the <see cref="LoginUserRequest"/> class.
+    /// Ensures that the login and password fields are not empty and meet minimum length requirements.
+    /// </summary>
     public sealed class Validator : AbstractValidator<LoginUserRequest>
     {
         public Validator()
@@ -14,6 +18,9 @@ namespace IdentityApp.Users.LoginUser
         }
     }
 
+    /// <summary>
+    /// Defines the endpoint for user login authentication.
+    /// </summary>
     public sealed class LoginUserEndpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)

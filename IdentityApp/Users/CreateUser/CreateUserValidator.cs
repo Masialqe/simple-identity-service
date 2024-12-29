@@ -7,6 +7,9 @@ using IdentityApp.Configuration;
 
 namespace IdentityApp.Users.CreateUser
 {
+    /// <summary>
+    /// Validates the user creation request, ensuring that the login is unique and the password meets the required criteria.
+    /// </summary>
     public sealed class CreateUserValidator(
         IUserRepository userRepository,
         IOptions<PasswordOptions> options) : ICreateUserValidator

@@ -1,5 +1,8 @@
 ﻿namespace IdentityApp.Shared.Domain.Models
 {
+    /// <summary>
+    /// Represents a user role within the application.
+    /// </summary>
     public sealed class Role
     {
         public static Role Create(string name)

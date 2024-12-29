@@ -1,5 +1,8 @@
 ﻿namespace IdentityApp.Shared.Domain.Models
 {
+    /// <summary>
+    /// Represents a user in the application.
+    /// </summary>
     public class User
     {
         public static User Create(string login, string passwordHash)

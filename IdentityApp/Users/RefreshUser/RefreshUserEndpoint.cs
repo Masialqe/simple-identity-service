@@ -4,6 +4,10 @@ using FluentValidation;
 
 namespace IdentityApp.Users.RefreshUser
 {
+    /// <summary>
+    /// Validator for the <see cref="RefreshUserRequest"/> class.
+    /// Ensures that the refresh token is not empty.
+    /// </summary>
     public sealed class Validator : AbstractValidator<RefreshUserRequest>
     {
         public Validator()
@@ -12,6 +16,9 @@ namespace IdentityApp.Users.RefreshUser
         }
     }
 
+    /// <summary>
+    /// Defines the endpoint for user login authentication using refresh token.
+    /// </summary>
     public sealed class RefreshUserEndpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)

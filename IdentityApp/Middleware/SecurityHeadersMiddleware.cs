@@ -2,6 +2,10 @@
 
 namespace IdentityApp.Middleware
 {
+    /// <summary>
+    /// Adds security headers to API responses.
+    /// </summary>
+    /// <param name="_next"></param>
     public sealed class SecurityHeadersMiddleware(
         RequestDelegate _next)
     {
